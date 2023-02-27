@@ -1,0 +1,36 @@
+<!--pages/words/words.wxml-->
+<view class="main">
+  <view style="width: 100%;text-align: center; font-size: 18px;">
+    单词列表
+  </view>
+  <view class="selector">
+    <picker mode="multiSelector" range="{{selectGrade}}" value="{{selectIndex}}" bindcolumnchange="unitChange" bindchange="bindMultiPickerChange">
+      <view class="picker">
+        当前选择：{{selectGrade[0][selectIndex[0]]}}, {{selectGrade[1][selectIndex[1]]}}
+      </view>
+
+    </picker>
+  </view>
+  <block wx:if="{{ischeck}}">
+    <view class="wordsList-test" wx:for="{{selectedWords}}">
+    <view>单词：{{item.word}}</view>
+    <view>美音：{{item.america}}</view>
+    <view>英音：{{item.english}}</view>
+    <view>释义：{{item.meaning}}</view>
+  </view>
+  </block>
+  
+
+  <block wx:else>
+    <view class="wordsList" wx:for="{{selectedWords}}" data-src="http://photo.qingchena.top/audio/{{item.grade}}/{{item.audio}}" bindtap="playAudio">
+    <view class="left">
+      <image mode="widthFix" src="/img/play.png" mode="" />
+    </view>
+    <view class="right">
+      <view style="font-size: 22px;font-family: 'Times New Roman', Times, serif; font-weight: bold;">{{item.word}}</view>
+      <view wx:if="{{item.america != ''}}">美音: {{item.america}} -- 英音：{{item.english}}</view>
+      <view>{{item.meaning}}</view>
+    </view>
+  </view>
+  </block>
+</view>

@@ -1,0 +1,6 @@
+<view class="main">
+  <view style="text-align: center; font-size: 22px;">初中英语单词大全</view>
+  <view  class="bookList">
+    <image wx:for="{{textBook}}" class="bookCover" src="/img/{{item}}.jpeg" mode="scaleToFill" bindtap="loadWords" id="{{index + 1}}" />
+  </view>
+</view>

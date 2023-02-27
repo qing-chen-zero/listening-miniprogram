@@ -1,0 +1,26 @@
+/* pages/words/words.wxss */
+.main {
+  width: 90%;
+  margin: 0 auto;
+}
+.words-audio {
+  width: 100%;
+}
+.wordsList {
+  display: flex;
+  height: auto;
+  width: 100%;
+  align-items: center;
+  margin: 15px 0;
+  border: 1px solid #000;
+}
+.wordsList-test {
+  height: auto;
+  border: 1px solid #000;
+  margin: 15px 0;
+}
+.left image {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+}

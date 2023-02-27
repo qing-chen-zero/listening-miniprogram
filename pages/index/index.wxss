@@ -1,0 +1,15 @@
+.bookCover {
+  flex: 0 0 40%;
+  width: 100px;
+  height: 250px;
+  overflow: hidden;
+  margin: 10px 10px;
+}
+.bookList {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-flow: row wrap;
+}
