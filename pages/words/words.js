@@ -23,7 +23,7 @@ Page({
     selectIndex:[0,0],
     grade:0,
     unit:0,
-    ischeck: false
+    ischeck: true
   },
 
   /**
@@ -41,7 +41,7 @@ Page({
       selectedWords: this.data.jsons[this.data.bookId-1].filter(word=>word.unit==1),
       selectIndex:[this.data.bookId-1,0]
     })
-    let time = new Date("2023-02-27 19:30:00");
+    let time = new Date("2023-02-27 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false

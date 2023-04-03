@@ -1,13 +1,38 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/words/words"
+    "pages/words/words",
+    "pages/write/write",
+    "pages/user/user",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "小晨单词",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "听单词",
+        "iconPath": "/img/home.png",
+        "selectedIconPath": "/img/home-select.png"
+      },
+      {
+        "pagePath": "pages/write/write",
+        "text": "写单词",
+        "iconPath": "/img/write.png",
+        "selectedIconPath": "/img/write-select.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "个人中心",
+        "iconPath": "/img/user.png",
+        "selectedIconPath": "/img/user-select.png"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

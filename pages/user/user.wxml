@@ -1,0 +1,9 @@
+<view wx:if="{{user.username != null}}">
+  <view>
+    <image src="/img/{{user.headImg}}" mode="widthFix"/>
+  </view>
+</view>
+
+<view class="login_btn" wx:else>
+  <button style="border-radius: 10px; background-color: #ffda2a;" bindtap="navigateLogin">点击登陆</button>
+</view>

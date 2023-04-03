@@ -1,0 +1,26 @@
+<!--pages/login/login.wxml-->
+<view>
+
+  <view class="login_form">
+    <view style="margin-bottom: 50px;">欢迎使用小晨单词！</view>
+    <view class="username login_item">
+      <span>用户名:</span>
+      <input type="text" name="username" id="username" bindinput="changeUsername" value="{{user.username}}"/>
+    </view>
+    <view class="password login_item">
+      <span>密码:</span>
+      <input type="password" name="password" id="password" bindinput="changeUsername" value="{{user.password}}"/>
+    </view>
+    <view class="repassword login_item" wx:if="{{isRegister}}">
+      <span>确认密码:</span>
+      <input type="password" name="repassword" id="repassword" bindinput="changeUsername" value="{{user.repassword}}"/>
+    </view>
+    <view wx:if="{{!isRegister}}" class="button login_item">
+      <button style="border-radius: 10px; margin: 10px 0; background-color: #ffda2a;" bindtap="loginUser">登陆</button>
+      <button style="border-radius: 10px; background-color: #a872e9;" bindtap="navigateToRegister">点击注册</button>
+    </view>
+    <view wx:if="{{isRegister}}" class="button login_item">
+      <button style="border-radius: 10px; background-color: #ffda2a;" bindtap="registerUser">注册</button>
+    </view>
+  </view>
+</view>
