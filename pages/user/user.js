@@ -6,6 +6,11 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUseGetUserProfile: true,
+    userOptions:[
+      {option:"我的错题集",url:""},
+      {option:"我的错题集",url:""},
+      {option:"我的单词记录",url:""},
+    ]
   },
 
   /**

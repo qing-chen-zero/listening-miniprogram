@@ -5,3 +5,19 @@
   justify-content: center;
   align-items: center;
 }
+.user {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.user_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.user_info image {
+  width: 100px;
+  border-radius: 50%;
+}

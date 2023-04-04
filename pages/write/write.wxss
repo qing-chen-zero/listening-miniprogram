@@ -1,1 +1,7 @@
 /* pages/write/write.wxss */
+.select-word-num-button {
+  display: flex;
+}
+.select-word-num-button button {
+  width: 20%;
+}

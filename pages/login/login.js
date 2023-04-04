@@ -97,14 +97,14 @@ Page({
               url: '/pages/user/user',
             })
           }, 1000)
-
+        } else {
+          wx.showToast({
+            title: '登陆失败！请检查用户名或密码！',
+            icon: 'error',
+            duration: 2000
+          })
         }
-      }
-    })
-    wx.showToast({
-      title: '登陆失败！请检查用户名或密码！',
-      icon: 'error',
-      duration: 2000
+      },
     })
   },
   /**

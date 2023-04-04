@@ -1,7 +1,13 @@
-<view wx:if="{{user.username != null}}">
-  <view>
+<view wx:if="{{user.username != null}}" class="user">
+  <view class="user_info">
     <image src="/img/{{user.headImg}}" mode="widthFix"/>
-  </view>
+    <view>
+      <text>欢迎您,{{ user.username }}</text>
+    </view>
+    <view class="words_options">
+      <navigator wx:for="{{ userOptions }}" url="{{item.url}}">{{item.option}}</navigator>
+    </view>
+  </view>  
 </view>
 
 <view class="login_btn" wx:else>
