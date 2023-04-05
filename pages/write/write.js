@@ -3,6 +3,8 @@ import json2 from "../../util/2"
 import json3 from "../../util/3"
 import json4 from "../../util/4"
 import json5 from "../../util/5"
+const query = wx.createSelectorQuery()
+const pattern=/[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g;
 // pages/words/words.js
 Page({
 
@@ -29,7 +31,19 @@ Page({
       {num:15,color:"#ffca28"},
       {num:20,color:"#ffca28"},
       {num:30,color:"#ffca28"}
-    ]
+    ],
+    randomWords:[],
+    currentWord:[],
+    answer:[],
+    index:0,
+    maxIndex:0,
+    inputFocus:[],
+    focus: true,
+    focusIndex:0,
+    wrongTimes:3,
+    isCorrect: false,
+    isShowAnswer: false,
+    answerWord:"",
   },
 
   /**
@@ -102,10 +116,11 @@ Page({
     innerAudioContext.src = e.currentTarget.dataset.src
     innerAudioContext.play()
   },
-  changeWordNum : function(e) {
+  async changeWordNum(e) {
+    
     this.data.wordNum = e.target.dataset.num
     let that = this;
-    wx.request({
+    await wx.request({
       url: 'http://localhost:30303/random_words',
       method:"GET",
       data: {
@@ -114,8 +129,83 @@ Page({
         num: that.data.wordNum
       },
       success(res) {
-        console.log(res);
-      }
+        that.setData({
+          randomWords: res.data,
+          currentWord : res.data[that.data.index].word.replace(pattern,"").split(""),
+          isShowAnswer: false,
+        },()=>{
+          that.setData({
+            maxIndex : that.data.currentWord.length,
+            answer : new Array(that.data.currentWord.length)
+          })
+          that.data.inputFocus[0] = true
+          console.log(that.data.maxIndex, that.data.currentWord, that.data.inputFocus);
+        })
+      },
+    })
+  },
+  ValidatePassKey(e) {
+    let index = e.target.id
+    let value = e.detail.value
+    this.data.answer[index] = value
+    if( value !== "") {
+      this.setData({
+        focusIndex : Number(index) + 1,
+      })
+    }
+    // console.log(this.data.answer);
+    // console.log(this.data.answer.toString().replaceAll(",",""));
+    // console.log(this.data.currentWord.toString().replaceAll(",",""));
+  },
+  playAudio : function(e) {
+    const innerAudioContext = wx.createInnerAudioContext({
+      useWebAudioImplement:true
+    })
+    innerAudioContext.src = e.currentTarget.dataset.src
+    innerAudioContext.play()
+  },
+  async sumbitWord(e) {
+    let inputAnswer = this.data.answer.toString().replaceAll(",","")
+    let currentAnswer = this.data.currentWord.toString().replaceAll(",","")
+    if (inputAnswer !== currentAnswer && this.data.wrongTimes > 0) {
+      this.setData({
+        wrongTimes: this.data.wrongTimes-1
+      })
+      wx.showToast({
+        title: '答错了哦！',
+        icon: 'error',
+        duration: 2000
+      })
+    } else if (inputAnswer !== currentAnswer && this.data.wrongTimes == 0) {
+      wx.showToast({
+        title: '您不能再作答了',
+        icon: 'error',
+        duration: 2000
+      })
+    } else if (inputAnswer === currentAnswer) {
+      wx.showToast({
+        title: '正确！',
+        icon: 'success',
+        duration: 2000
+      })
+      this.setData({
+        currentWord:[]
+      })
+      let currentIndex = this.data.index;
+      this.setData({
+        index: currentIndex+1,
+        currentWord: this.data.randomWords[currentIndex+1].word.replace(pattern, "").split(""),
+        answer: new Array(this.data.randomWords[currentIndex+1].word.replace(pattern, "").split("").length),
+        focusIndex: 0,
+        wrongTimes: 3
+      })
+      console.log(this.data.index, this.data.currentWord, this.data.maxIndex, this.data.answer, this.data.answer);
+    }
+  },
+  showAnswer() {
+    this.setData({
+      isShowAnswer:true,
+      answerWord:this.data.currentWord.toString().replaceAll(",","")
     })
   }
 })

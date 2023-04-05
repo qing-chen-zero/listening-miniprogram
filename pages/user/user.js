@@ -10,9 +10,15 @@ Page({
       {option:"我的错题集",url:""},
       {option:"我的错题集",url:""},
       {option:"我的单词记录",url:""},
-    ]
+    ],
+    test:0,
   },
-
+  testFunc() {
+    this.setData({
+      test:this.data.test+1,
+    })
+    console.log(this.data.test);
+  },
   /**
    * Component methods
    */

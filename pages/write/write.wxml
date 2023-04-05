@@ -1,15 +1,50 @@
 <view class="write-words">
   <view class="selector">
-  <picker mode="multiSelector" range="{{selectGrade}}" value="{{selectIndex}}" bindcolumnchange="unitChange" bindchange="bindMultiPickerChange">
-    <view class="picker">
-      当前选择：{{selectGrade[0][selectIndex[0]]}}, {{selectGrade[1][selectIndex[1]]}}
-    </view>
-  </picker>
-</view>
-<view class="write-words-main">
-  <text>请选择您要听写单词的个数：</text>
-  <view class="select-word-num-button">
-    <button wx:for="{{wordNum}}" data-num="{{item.num}}" style="background-color: {{item.color}};" bindtap="changeWordNum">{{item.num}}</button>
+    <picker mode="multiSelector" range="{{selectGrade}}" value="{{selectIndex}}" bindcolumnchange="unitChange" bindchange="bindMultiPickerChange">
+      <view class="picker">
+        当前选择：{{selectGrade[0][selectIndex[0]]}}, {{selectGrade[1][selectIndex[1]]}}
+      </view>
+    </picker>
   </view>
-</view>
+  <view class="write-words-main">
+    <text>请选择您要听写单词的个数：</text>
+    <view class="select-word-num-button">
+      <button wx:for="{{wordNum}}" data-num="{{item.num}}" style="background-color: {{item.color}};" bindtap="changeWordNum">{{item.num}}</button>
+    </view>
+    <!-- <view class="tips">
+      您可以点击下一个进行提交
+    </view> -->
+    <view class="write-words-options" wx:if="{{ randomWords.length > 0 }}">
+      <view class="change-button">
+        <button bindtap="prevWord" wx:if="{{index > 1}}">上一个</button>
+        <button bindtap="nextWord" wx:if="{{index < maxIndex}}">下一个</button>
+      </view>
+      <view class="word-mian">
+        <view class="word-tips">
+          <view class="wordsList" data-src="http://photo.qingchena.top/audio/{{grade}}/{{randomWords[index].audio}}" bindtap="playAudio">
+            <view class="left">
+              <image mode="widthFix" src="/img/play.png" mode="" />
+            </view>
+            <view class="right">
+              <view wx:if="{{item.america != ''}}">美音: {{randomWords[index].america}} -- 英音：{{randomWords[index].english}}</view>
+              <view>{{randomWords[index].meaning}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="word">
+          <input class="writing" wx:for="{{ currentWord }}" focus="{{ focus && focusIndex == idx }}" wx:for-index="idx" id="{{idx}}" wx:key="{{item.index}}" type="text" maxlength="1"  bindinput="ValidatePassKey" />
+        </view>
+        <view class="isCorrect">
+          <button bindtap="sumbitWord">提交</button>
+          <button bindtap="showAnswer">查看答案</button>
+          <view style="text-align: center; margin: 10px 0; color: red;">
+            您还有{{wrongTimes}}次机会
+          </view>
+          <view wx:if="{{isShowAnswer}}">
+            答案：{{answerWord}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
