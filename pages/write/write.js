@@ -44,6 +44,7 @@ Page({
     isCorrect: false,
     isShowAnswer: false,
     answerWord:"",
+    infoMessage: ""
   },
 
   /**
@@ -66,6 +67,7 @@ Page({
 
   },
 
+  // 切换单词时
   unitChange: function(e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     let data = {
@@ -97,6 +99,7 @@ Page({
     }
     this.setData(data)
   },
+  // 当选择器picker改变时，进行单元的设置
   bindMultiPickerChange:function(e) {
     this.data.grade = e.detail.value[0] + 1 
     this.data.unit = e.detail.value[1] + 1
@@ -109,15 +112,8 @@ Page({
       )
     })
   },
-  playAudio : function(e) {
-    const innerAudioContext = wx.createInnerAudioContext({
-      useWebAudioImplement:true
-    })
-    innerAudioContext.src = e.currentTarget.dataset.src
-    innerAudioContext.play()
-  },
+  // 选择单词数量时，调用方法请求新的单词数据
   async changeWordNum(e) {
-    
     this.data.wordNum = e.target.dataset.num
     let that = this;
     await wx.request({
@@ -135,15 +131,15 @@ Page({
           isShowAnswer: false,
         },()=>{
           that.setData({
-            maxIndex : that.data.currentWord.length,
+            maxIndex : that.data.randomWords.length,
             answer : new Array(that.data.currentWord.length)
           })
           that.data.inputFocus[0] = true
-          console.log(that.data.maxIndex, that.data.currentWord, that.data.inputFocus);
         })
       },
     })
   },
+  // 进行光标移动
   ValidatePassKey(e) {
     let index = e.target.id
     let value = e.detail.value
@@ -153,10 +149,8 @@ Page({
         focusIndex : Number(index) + 1,
       })
     }
-    // console.log(this.data.answer);
-    // console.log(this.data.answer.toString().replaceAll(",",""));
-    // console.log(this.data.currentWord.toString().replaceAll(",",""));
   },
+  // 点击播放音频
   playAudio : function(e) {
     const innerAudioContext = wx.createInnerAudioContext({
       useWebAudioImplement:true
@@ -164,9 +158,14 @@ Page({
     innerAudioContext.src = e.currentTarget.dataset.src
     innerAudioContext.play()
   },
+
+  // 提交单词数据
   async sumbitWord(e) {
+    // 写入的单词
     let inputAnswer = this.data.answer.toString().replaceAll(",","")
+    // 正确答案
     let currentAnswer = this.data.currentWord.toString().replaceAll(",","")
+    // 如果剩余可错误次数大于0 且 答案不正确 可错误次数-1
     if (inputAnswer !== currentAnswer && this.data.wrongTimes > 0) {
       this.setData({
         wrongTimes: this.data.wrongTimes-1
@@ -177,20 +176,25 @@ Page({
         duration: 2000
       })
     } else if (inputAnswer !== currentAnswer && this.data.wrongTimes == 0) {
+      // 如果可错误次数=0 即不能作答，记录错误单词数据
+      // TODO 提交错误单词接口
       wx.showToast({
         title: '您不能再作答了',
         icon: 'error',
         duration: 2000
       })
     } else if (inputAnswer === currentAnswer) {
+      // 如果 答案正确，进行下一个单词，
       wx.showToast({
         title: '正确！',
         icon: 'success',
         duration: 2000
       })
       this.setData({
+        // 当前单词清空
         currentWord:[]
       })
+      // 
       let currentIndex = this.data.index;
       this.setData({
         index: currentIndex+1,
@@ -199,7 +203,11 @@ Page({
         focusIndex: 0,
         wrongTimes: 3
       })
-      console.log(this.data.index, this.data.currentWord, this.data.maxIndex, this.data.answer, this.data.answer);
+    }
+    if (this.data.index == this.data.maxIndex-1) {
+      this.setData({
+        infoMessage: "您已经完成了全部单词的听写"
+      })
     }
   },
   showAnswer() {

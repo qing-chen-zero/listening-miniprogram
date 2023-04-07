@@ -16,6 +16,9 @@
     </view> -->
     <view class="write-words-options" wx:if="{{ randomWords.length > 0 }}">
       <view class="change-button">
+        <view class="rate-of-listening">
+          当前：{{index+1}}/{{maxIndex}}
+        </view>
         <button bindtap="prevWord" wx:if="{{index > 1}}">上一个</button>
         <button bindtap="nextWord" wx:if="{{index < maxIndex}}">下一个</button>
       </view>
@@ -46,5 +49,8 @@
         </view>
       </view>
     </view>
+  </view>
+  <view class="info" >
+    {{ infoMessage }}
   </view>
 </view>
