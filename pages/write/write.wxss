@@ -8,6 +8,7 @@
 .change-button {
   margin-top: 20px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -54,5 +55,17 @@
   align-items: center;
 }
 .isCorrect button {
+  margin: 10px 0;
+}
+.rate-of-listening {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+.info {
+  text-align: center;
+}
+.isCorrect {
+  text-align: center;
   margin: 10px 0;
 }
