@@ -1,0 +1,24 @@
+<!--pages/words/words.wxml-->
+<view class="main">
+  <view style="width: 100%;text-align: center; font-size: 18px;">
+    单词列表
+  </view>
+  
+  <block wx:if="{{ischeck}}">
+    <view>开发者正在修复中……请稍后访问</view>
+  </block>
+
+
+  <block wx:else>
+    <view class="wordsList" wx:for="{{selectedWords}}" data-src="http://photo.qingchena.top/audio/{{item.grade}}/{{item.audio}}" bindtap="playAudio">
+      <view class="left">
+        <image mode="widthFix" src="/img/play.png" mode="" />
+      </view>
+      <view class="right">
+        <view style="font-size: 22px;font-family: 'Times New Roman', Times, serif; font-weight: bold;">{{item.word}}</view>
+        <view wx:if="{{item.america != ''}}">美音: {{item.america}} -- 英音：{{item.english}}</view>
+        <view>{{item.meaning}}</view>
+      </view>
+    </view>
+  </block>
+</view>

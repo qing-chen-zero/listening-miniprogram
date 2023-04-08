@@ -10,6 +10,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 .user_info {
   display: flex;
@@ -20,4 +21,16 @@
 .user_info image {
   width: 100px;
   border-radius: 50%;
+}
+.words_options {
+  margin-top: 50px;
+  width: 100%;
+}
+.user-data {
+  text-align: center;
+  border: 1px solid #000;
+  padding: 10px 0;
+  margin: 10px 0;
+  background-color: #ffda2a;
+  font-weight: bold;
 }

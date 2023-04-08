@@ -1,0 +1,6 @@
+<view class="recording-list">
+  <view style="margin: 10px 0;">
+    您的听写记录
+  </view>
+  <navigator class="recordings-details" wx:for="{{ recordings }}" url="/pages/details/details?id={{item.recording_id}}">时间：{{item.create_time}} 数量{{item.word_num}} <text style="color: red;">点击查看</text></navigator>
+</view>

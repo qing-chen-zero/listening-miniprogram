@@ -4,7 +4,10 @@
     "pages/words/words",
     "pages/write/write",
     "pages/user/user",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/incorrects/incorrects",
+    "pages/recording/recording",
+    "pages/details/details"
   ],
   "window": {
     "backgroundTextStyle": "light",

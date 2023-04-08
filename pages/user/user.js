@@ -3,21 +3,12 @@ Page({
 
   data: {
     user: {},
-    userInfo: {},
     hasUserInfo: false,
     canIUseGetUserProfile: true,
     userOptions:[
-      {option:"我的错题集",url:""},
-      {option:"我的错题集",url:""},
-      {option:"我的单词记录",url:""},
+      {option:"我的错题集",url:"/pages/incorrects/incorrects"},
+      {option:"我的单词记录",url:"/pages/recording/recording"},
     ],
-    test:0,
-  },
-  testFunc() {
-    this.setData({
-      test:this.data.test+1,
-    })
-    console.log(this.data.test);
   },
   /**
    * Component methods
@@ -42,15 +33,19 @@ Page({
         this.setData({
           user: user
         })
-        wx.removeStorage({
-          key: 'userinfo',
-          success: (result) => {},
-          fail: () => {},
-          complete: () => {}
-        })
       }
     }catch(error) {
       console.log(error);
+    }
+  },
+  toLogout() {
+    this.setData({
+      user:null
+    })
+    try {
+      wx.clearStorage()
+    }catch(e) {
+      console.log(e);
     }
   }
 })

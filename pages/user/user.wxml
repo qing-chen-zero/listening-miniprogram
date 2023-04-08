@@ -5,15 +5,11 @@
       <text>欢迎您,{{ user.username }}</text>
     </view>
     <view class="words_options">
-      <navigator wx:for="{{ userOptions }}" url="{{item.url}}">{{item.option}}</navigator>
+      <navigator class="user-data" wx:for="{{ userOptions }}" url="{{item.url}}">{{item.option}}</navigator>
     </view>
+    <button style="border-radius: 10px; background-color: #ffda2a;" bindtap="toLogout">退出</button>
   </view>
 </view>
 <view class="login_btn" wx:else>
   <button style="border-radius: 10px; background-color: #ffda2a;" bindtap="navigateLogin">点击登陆</button>
 </view>
-
-<view>
-  {{test}}
-</view>
-<button bindtap="testFunc">增加</button>

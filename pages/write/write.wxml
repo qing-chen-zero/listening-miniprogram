@@ -1,4 +1,4 @@
-<view class="write-words">
+<view class="write-words" wx:if="{{user != null && ischeck}}">
   <view class="selector">
     <picker mode="multiSelector" range="{{selectGrade}}" value="{{selectIndex}}" bindcolumnchange="unitChange" bindchange="bindMultiPickerChange">
       <view class="picker">
@@ -21,8 +21,9 @@
           当前：{{index+1}}/{{maxIndex}}
         </view>
 
-        <button bindtap="prevWord" wx:if="{{index > 1}}">上一个</button>
-        <button bindtap="nextWord" wx:if="{{index < maxIndex}}">下一个</button>
+        <!-- <button bindtap="prevWord" wx:if="{{index > 0}}">上一个</button> -->
+        <button bindtap="nextWord" wx:if="{{index < maxIndex && showNextWord}}">下一个</button>
+
       </view>
       <view class="word-mian">
         <view class="word-tips">
@@ -40,7 +41,7 @@
           <input class="writing" wx:for="{{ currentWord }}" focus="{{ focus && focusIndex == idx }}" wx:for-index="idx" id="{{idx}}" wx:key="{{item.index}}" type="text" maxlength="1"  bindinput="ValidatePassKey" />
         </view>
         <view class="isCorrect">
-          <button bindtap="sumbitWord">提交</button>
+          <button bindtap="sumbitWord" disabled="{{canSubmit}}">提交</button>
           <button bindtap="showAnswer">查看答案</button>
           <view style="text-align: center; margin: 10px 0; color: red;">
             您还有{{wrongTimes}}次机会
@@ -55,4 +56,10 @@
   <view class="info" >
     {{ infoMessage }}
   </view>
+</view>
+<view wx:if="{{user == null}}" class="btn-login">
+  <button bindtap="navigateLogin">去登录</button>
+</view>
+<view wx:else>
+  正在加班开发中
 </view>

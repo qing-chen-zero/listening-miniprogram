@@ -69,3 +69,13 @@
   text-align: center;
   margin: 10px 0;
 }
+.btn-login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.btn-login button {
+  background-color: #ffda2a;
+}

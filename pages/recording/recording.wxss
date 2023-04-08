@@ -1,0 +1,6 @@
+.recording-list {
+  text-align: center;
+}
+.recordings-details {
+  margin: 5px 0;
+}
