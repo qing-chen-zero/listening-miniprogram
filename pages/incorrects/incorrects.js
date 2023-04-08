@@ -24,7 +24,7 @@ Page({
     if (that.data.bookId == "undefined") {
       that.data.bookId = 1;
     }
-    let time = new Date("2023-04-08 19:00:00");
+    let time = new Date("2023-04-10 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false

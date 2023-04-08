@@ -26,7 +26,6 @@ Page({
     selectIndex: [0, 0],
     grade: 1,
     unit: 1,
-    ischeck: true,
     wordNum: [{
         num: 10,
         color: "#ffca28"
@@ -60,7 +59,7 @@ Page({
     user: null,
     showNextWord: false, // 展示下一个单词按钮
     canSubmit:false,
-    ischeck: true
+    ischeck: false
   },
 
   /**
@@ -75,7 +74,7 @@ Page({
       selectedWords: this.data.jsons[this.data.bookId - 1].filter(word => word.unit == 1),
       selectIndex: [this.data.bookId - 1, 0]
     })
-    let time = new Date("2023-02-27 19:00:00");
+    let time = new Date("2023-04-10 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false
@@ -188,9 +187,9 @@ Page({
     // 将this指针赋值给that
     let that = this
     // 写入的单词
-    let inputAnswer = this.data.answer.toString().replaceAll(",", "")
+    let inputAnswer = this.data.answer.toString().toLowerCase().replaceAll(",", "")
     // 正确答案
-    let currentAnswer = this.data.currentWord.toString().replaceAll(",", "")
+    let currentAnswer = this.data.currentWord.toString().toLowerCase().replaceAll(",", "")
     // 如果剩余可错误次数大于0 且 答案不正确 可错误次数-1
     if (inputAnswer !== currentAnswer && this.data.wrongTimes > 0) {
       this.setData({

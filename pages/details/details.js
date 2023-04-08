@@ -13,7 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let time = new Date("2023-04-08 19:00:00");
+    let time = new Date("2023-04-10 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false

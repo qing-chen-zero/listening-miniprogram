@@ -1,4 +1,4 @@
-<view class="write-words" wx:if="{{user != null && ischeck}}">
+<view class="write-words" wx:if="{{user != null && !ischeck}}">
   <view class="selector">
     <picker mode="multiSelector" range="{{selectGrade}}" value="{{selectIndex}}" bindcolumnchange="unitChange" bindchange="bindMultiPickerChange">
       <view class="picker">
@@ -47,6 +47,9 @@
             您还有{{wrongTimes}}次机会
           </view>
           <view wx:if="{{isShowAnswer}}">
+            <view style="color: red;">
+              不区分大小写
+            </view>
             答案：{{answerWord}}
           </view>
         </view>
