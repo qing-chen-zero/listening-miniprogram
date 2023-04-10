@@ -12,7 +12,8 @@ Page({
       password: "",
       repassword: ""
     },
-    isRegister: false
+    isRegister: false,
+    errMsg:""
   },
 
   methods: {
@@ -21,12 +22,41 @@ Page({
 
   navigateToRegister() {
     this.setData({
-      isRegister: true
+      isRegister: true,
+      errMsg: "",
+      user:{
+        headImg: "defalut.jpeg",
+        username: "",
+        password: "",
+        repassword: ""
+      }
     })
   },
-
+  navigateToLogin() {
+    this.setData({
+      isRegister: false,
+      errMsg: "",
+      user:{
+        headImg: "defalut.jpeg",
+        username: "",
+        password: "",
+        repassword: ""
+      }
+    })
+  },
   async registerUser() {
     let that = this;
+    if (that.data.user.username == "" || that.data.user.password == "" || that.data.user.repassword == "") {
+      wx.showToast({
+        title: '请输入用户信息',
+        icon: 'error',
+        duration: 2000
+      })
+      that.setData({
+        errMsg: "请确认用户信息！"
+      })
+      return false;
+    }
     if (that.data.isRegister) {
       console.log(that.data.user);
       if (that.data.user.password !== that.data.user.repassword) {
@@ -91,6 +121,9 @@ Page({
             icon: 'success',
             duration: 2000
           })
+          that.setData({
+            errMsg:""
+          })
           setTimeout(() => {
             wx.setStorageSync('userinfo', res.data.user)
             wx.switchTab({
@@ -99,9 +132,12 @@ Page({
           }, 1000)
         } else {
           wx.showToast({
-            title: '登陆失败！请检查用户名或密码！',
+            title: '失败!请检查！',
             icon: 'error',
             duration: 2000
+          })
+          that.setData({
+            errMsg:"您的密码或用户名可能写错啦！"
           })
         }
       },
@@ -161,8 +197,5 @@ Page({
    */
   onShareAppMessage() {
 
-  },
-  globalData: {
-    userinfo: null
   },
 })
