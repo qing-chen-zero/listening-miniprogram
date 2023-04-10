@@ -5,7 +5,7 @@ import json4 from "../../util/4"
 import json5 from "../../util/5"
 const query = wx.createSelectorQuery()
 const pattern = /[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g;
-const baseUrl = "http://47.113.148.129:30303/"
+const baseUrl = "https://photo.qingchena.top:30303/"
 // pages/words/words.js
 Page({
 
@@ -74,7 +74,7 @@ Page({
       selectedWords: this.data.jsons[this.data.bookId - 1].filter(word => word.unit == 1),
       selectIndex: [this.data.bookId - 1, 0]
     })
-    let time = new Date("2023-04-10 19:00:00");
+    let time = new Date("2023-04-11 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false

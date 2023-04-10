@@ -1,5 +1,5 @@
 // pages/recording/recording.js
-const baseUrl = "http://47.113.148.129:30303"
+const baseUrl = "https://photo.qingchena.top:30303/"
 Page({
 
   /**
