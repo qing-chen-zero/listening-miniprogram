@@ -5,7 +5,7 @@ import json4 from "../../util/4"
 import json5 from "../../util/5"
 const query = wx.createSelectorQuery()
 const pattern = /[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g;
-const baseUrl = "https://photo.qingchena.top:30303/"
+const baseUrl = "https://photo.qingchena.top/words"
 // pages/words/words.js
 Page({
 
@@ -50,7 +50,6 @@ Page({
     maxIndex: 0,
     inputFocus: [],
     focus: true,
-    focusIndex: 0,
     wrongTimes: 3,
     isCorrect: false,
     isShowAnswer: false,
@@ -59,7 +58,8 @@ Page({
     user: null,
     showNextWord: false, // 展示下一个单词按钮
     canSubmit:false,
-    ischeck: false
+    ischeck: false,
+    inputValue: ""
   },
 
   /**
@@ -74,7 +74,7 @@ Page({
       selectedWords: this.data.jsons[this.data.bookId - 1].filter(word => word.unit == 1),
       selectIndex: [this.data.bookId - 1, 0]
     })
-    let time = new Date("2023-04-11 19:00:00");
+    let time = new Date("2023-04-12 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false
@@ -134,7 +134,6 @@ Page({
   },
   // 选择单词数量时，调用方法请求新的单词数据
   async changeWordNum(e) {
-
     this.data.wordNum = e.target.dataset.num
     let that = this;
     // 生成单词数据
@@ -152,26 +151,26 @@ Page({
           randomWords: res.data,
           currentWord: res.data[that.data.index].word.replace(pattern, "").split(""),
           isShowAnswer: false,
-        }, () => {
-          that.setData({
-            maxIndex: that.data.randomWords.length,
-            answer: new Array(that.data.currentWord.length)
-          })
-          that.data.inputFocus[0] = true
+          maxIndex: res.data.length,
+          index:0
         })
       },
     });
   },
   // 进行光标移动
   ValidatePassKey(e) {
-    let index = e.target.id
-    let value = e.detail.value
-    this.data.answer[index] = value
-    if (value !== "") {
-      this.setData({
-        focusIndex: Number(index) + 1,
-      })
+    console.log(e);
+    let currentIndex = e.detail.cursor - 1;
+    let value = e.detail.value[currentIndex];
+    let currentAnswer = this.data.answer
+    if(e.detail.keyCode == 8) {
+      currentAnswer.pop()
+    } else {
+      currentAnswer[currentIndex] = value;
     }
+    this.setData({
+      answer:currentAnswer
+    })
   },
   // 点击播放音频
   playAudio: function (e) {
@@ -193,7 +192,9 @@ Page({
     // 如果剩余可错误次数大于0 且 答案不正确 可错误次数-1
     if (inputAnswer !== currentAnswer && this.data.wrongTimes > 0) {
       this.setData({
-        wrongTimes: this.data.wrongTimes - 1
+        wrongTimes: this.data.wrongTimes - 1,
+        inputValue: "",
+        answer: []
       })
       wx.showToast({
         title: '答错了哦！',
@@ -203,7 +204,6 @@ Page({
     }
     if (inputAnswer !== currentAnswer && this.data.wrongTimes == 0) {
       // 如果可错误次数=0 即不能作答，记录错误单词数据
-
       wx.showToast({
         title: '您不能再作答了',
         icon: 'error',
@@ -211,7 +211,9 @@ Page({
       })
       this.setData({
         showNextWord: true,
-        canSubmit:true
+        canSubmit:true, 
+        inputValue: "",
+        answer: []
       })
       // 查看答案
       this.showAnswer()
@@ -239,14 +241,15 @@ Page({
       this.setData({
         // 当前单词清空
         currentWord: [],
-        canSubmit: false
+        canSubmit: false,
+        inputValue:"",
+        answer: []
       })
       // 
       let currentIndex = this.data.index;
       this.setData({
         index: currentIndex + 1,
         currentWord: this.data.randomWords[currentIndex + 1].word.replace(pattern, "").split(""),
-        answer: new Array(this.data.randomWords[currentIndex + 1].word.replace(pattern, "").split("").length),
         focusIndex: 0,
         wrongTimes: 3,
         showAnswer: false,

@@ -1,6 +1,6 @@
 
 // pages/incorrects/incorrects.js
-const baseUrl = "https://photo.qingchena.top:30303/"
+const baseUrl = "https://photo.qingchena.top/words"
 Page({
 
   /**
@@ -24,7 +24,7 @@ Page({
     if (that.data.bookId == "undefined") {
       that.data.bookId = 1;
     }
-    let time = new Date("2023-04-11 19:00:00");
+    let time = new Date("2023-04-12 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false

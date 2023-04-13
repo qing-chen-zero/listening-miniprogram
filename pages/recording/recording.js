@@ -1,5 +1,5 @@
 // pages/recording/recording.js
-const baseUrl = "https://photo.qingchena.top:30303/"
+const baseUrl = "https://photo.qingchena.top/words"
 Page({
 
   /**

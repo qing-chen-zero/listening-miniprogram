@@ -37,8 +37,16 @@
             </view>
           </view>
         </view>
-        <view class="word">
-          <input class="writing" wx:for="{{ currentWord }}" focus="{{ focus && focusIndex == idx }}" wx:for-index="idx" id="{{idx}}" wx:key="{{item.index}}" type="text" maxlength="1"  bindinput="ValidatePassKey" />
+        <view>请点击方框中间书写单词，不区分大小写</view>
+        <view>短语中，单词不需要留空格</view>
+        <view class="word"> 
+          
+          <input class="writing" type="text" value="{{inputValue}}" bindinput="ValidatePassKey" confirm-type="done" />
+          <view class="show-words">
+            <view class="show-words-main" wx:for="{{ answer }}">
+              {{item===null?'':item}}
+            </view>
+          </view>
         </view>
         <view class="isCorrect">
           <button bindtap="sumbitWord" disabled="{{canSubmit}}">提交</button>
@@ -60,9 +68,9 @@
     {{ infoMessage }}
   </view>
 </view>
-<view wx:if="{{user == null}}" class="btn-login">
-  <button bindtap="navigateLogin">去登录</button>
-</view>
 <view wx:else>
   正在加班开发中
+</view>
+<view wx:if="{{user == null}}" class="btn-login">
+  <button bindtap="navigateLogin">去登录</button>
 </view>

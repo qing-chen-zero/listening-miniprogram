@@ -3,7 +3,7 @@
   "projectname": "listening-miniprogram",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": false
+    "urlCheck": true
   },
-  "libVersion": "2.30.3"
+  "libVersion": "2.30.4"
 }

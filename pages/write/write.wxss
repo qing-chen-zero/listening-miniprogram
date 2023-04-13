@@ -17,18 +17,36 @@
 }
 .word {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 80%;
   height: 50%;
   justify-content: center;
   align-items: center;
+  position: relative;
+  border: 1px solid #000 ;
 }
-.word input {
+.show-words {
+  display: flex;
+  flex-direction: row;
+}
+.writing {
+  position: absolute;
+  right: 0;
+  width: 200%;
+  height: 100%;
+  color: #fff0;
+  caret-color: #fff;
+  bottom: 0;
+  opacity: 0;
+  
+}
+.show-words-main {
+  margin: 0 2.5px;
+  width: 1em;
   text-align: center;
-  width: 10rem;
-  margin: 0 5px;
   border-bottom: 2px solid #ccc;
 }
+
 
 .wordsList {
   display: flex;

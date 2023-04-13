@@ -1,4 +1,4 @@
-let baseUrl = "https://photo.qingchena.top:30303/"
+let baseUrl = "https://photo.qingchena.top/words"
 Page({
 
 
@@ -93,17 +93,22 @@ Page({
   changeUsername(e) {
     let type = e.target.id;
     let value = e.detail.value
+    let tempUser = this.data.user
+    console.log(type);
     switch (type) {
       case "username":
-        this.data.user.username = value;
+        tempUser.username = value
         break;
       case "password":
-        this.data.user.password = value;
+        tempUser.password = value
         break;
       case "repassword":
-        this.data.user.repassword = value;
+        tempUser.repassword = value
         break;
     }
+    this.setData({
+      user: tempUser
+    })
   },
   loginUser() {
     let that = this;
