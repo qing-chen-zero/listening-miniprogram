@@ -74,7 +74,7 @@ Page({
       selectedWords: this.data.jsons[this.data.bookId - 1].filter(word => word.unit == 1),
       selectIndex: [this.data.bookId - 1, 0]
     })
-    let time = new Date("2023-04-12 19:00:00");
+    let time = new Date("2023-04-20 19:00:00");
     let times = new Date()
     this.setData({
       ischeck: times<time?true:false
@@ -125,6 +125,7 @@ Page({
     this.data.unit = e.detail.value[1] + 1
     console.log(this.data.grade, this.data.unit);
     this.setData({
+      grade: e.detail.value[0] + 1,
       selectedWords: this.data.words[this.data.grade - 1].filter(
         (word) => {
           return word.unit == this.data.unit
